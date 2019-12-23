@@ -60,7 +60,7 @@ class App extends Component {
         // Nieuw todo als object maken
         const newToDo = {
           id: uuidv1(),
-          status: 0,
+          status: false,
           date: date.toLocaleDateString(),
           title: state.input,
         }
@@ -80,7 +80,7 @@ class App extends Component {
   // Remove after 2 seconds
   updated = () => {
       this.setState({
-        snackbarMsg: 'Updated ToDo',
+        snackbarMsg: 'Updated',
         snackbarState: true
       })
       setTimeout(() => {
@@ -151,18 +151,42 @@ class App extends Component {
     // 1. Vind index van todo item in array state.todos
     const indexArr = this.state.todos.findIndex((obj => obj.id === targetID));
 
-    const currTodos = this.state.todos;
+    // 2. Remove item from array
+    let newTodos = this.state.todos;
+    newTodos.splice(indexArr, 1);
 
-    console.log('todosBeforeSplice:', currTodos);
-    // 3. Remove item from array
-    let  newTodos = currTodos.splice(indexArr, 1);
-    console.log('todosAfterSplice:', newTodos);
-
-    // 4. Set state to new copy
+    // 3. Set state to new copy
     this.setState({
         todos: newTodos,
         dialog: false
     })
+  }
+
+  // Retrieve random todos from API
+  fetchTodos = () => {
+
+    fetch('https://jsonplaceholder.typicode.com/todos/')
+    .then(response => response.json())
+    .then(json => {
+      for (let i = 0; i < 5; i++) {
+        let status;
+        json[i].completed ? status = false : status = true;
+        // Store 5 random in the todo state
+        const newTodo = {
+          id: uuidv1(),
+          status: status,
+          date: new Date().toLocaleDateString(),
+          title: json[i].title
+        }
+        this.setState(prevState => ({
+          todos: [...prevState.todos, newTodo]
+        }))
+      }
+    });
+
+    // Show success message
+    this.updated();
+
   }
 
   render() {
@@ -180,7 +204,7 @@ class App extends Component {
             <Paper className="paper">
                 <Grid container direction="row" justify="space-between" alignItems="center" >
                   <AddToDo value={input} placeholder={input} handleChange={this.handleChange} addToDo={this.addToDo} />
-                  <Button variant="contained" color="secondary" className="btn btn-secondary">Add 5 random ToDos</Button>
+                  <Button variant="contained" color="secondary" className="btn btn-secondary" onClick={this.fetchTodos}>Fetch 5 random ToDos</Button>
                 </Grid>
             </Paper>
 
