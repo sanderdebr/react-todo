@@ -1,19 +1,30 @@
 body {
-    padding-top: 5em;
-    background: lightblue;
+    background: #f6f6f6;
 }
 
 .container {
-    background: #f6f6f6;
     border-radius: 5px;
 }
 
 .paper {
     padding: 1em;
-    margin: 2em 0;
+    margin: 1em 0;
 }
 
 .subtitle {
     padding: 1em 0;
     color: gray;
+}
+
+.MuiSvgIcon-root:hover {
+    cursor: pointer;
+}
+
+.disabled {
+    opacity: .5;
+    text-decoration: line-through;
+}
+
+.addBtn {
+    height: 55px;
 }

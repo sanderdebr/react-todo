@@ -7,8 +7,8 @@ const AddToDo = props => {
     return (
         <form onSubmit={props.addToDo}>
             <Grid container direction="row" justify="space-between" alignItems="center" >
-                <TextField label="Standard" variant="outlined" onChange={props.handleChange} type="text" value={props.input} placeholder="Add a ToDo.."></TextField>
-                <Button variant="contained" color="primary" onClick={props.addToDo} type="submit"type="button">Add</Button>
+                <TextField label="Add an ToDo.." variant="outlined" onChange={props.handleChange} type="text" value={props.input}></TextField>
+                <Button className="addBtn" variant="contained" color="primary" onClick={props.addToDo} type="submit"type="button">Add</Button>
             </Grid>
         </form>
     );
