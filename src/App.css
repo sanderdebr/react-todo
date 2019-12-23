@@ -1,8 +1,19 @@
 body {
     padding-top: 5em;
+    background: lightblue;
 }
 
-.input-group {
-    max-width: 400px;
+.container {
+    background: #f6f6f6;
+    border-radius: 5px;
+}
+
+.paper {
+    padding: 1em;
     margin: 2em 0;
+}
+
+.subtitle {
+    padding: 1em 0;
+    color: gray;
 }

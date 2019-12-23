@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import Card from './components/Card.jsx';
-import Navbar from './components/Navbar.jsx';
 import AddToDo from './components/AddToDo.jsx';
 import ToDoList from './components/ToDoList.jsx';
+
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+
 import './App.css';
 
 class App extends Component {
@@ -43,10 +48,13 @@ class App extends Component {
         // State updaten door nieuwe state object te returnen
         return {
           todos,
-          input: 'Add a new ToDo'
+          input: ''
         };
 
       });
+
+      // Maak input veld weer leeg
+      document.querySelector('input').value = '';
 
     }
 
@@ -57,29 +65,26 @@ class App extends Component {
     const { input } = this.state;
 
     return (
-      <div className="App">
+      <Container className="container" maxWidth="sm">
 
-        <Navbar />
+            <Paper className="paper">
+              <Typography variant="h4">React ToDo List</Typography>
+              <Typography className="subtitle" variant="h5">{input}</Typography>
+            </Paper>
 
-        <main role="main" className="container">
-          <div className="starter-template">
+            <Paper className="paper">
+                <Grid container direction="row" justify="space-between" alignItems="center" >
+                  <AddToDo value={input} placeholder={input} handleChange={this.handleChange} addToDo={this.addToDo} />
+                  <Button variant="contained" color="primary" className="btn btn-secondary">Add 5 random ToDos</Button>
+                </Grid>
+            </Paper>
 
-            <h1>{input}</h1>
+            <Paper className="paper">
+              <h2>ToDo list</h2>
+              <ToDoList todos={this.state.todos} />
+            </Paper>
 
-            <AddToDo value={input} placeholder={input} handleChange={this.handleChange} addToDo={this.addToDo} />
-
-            <button className="btn btn-secondary">Add 5 random ToDos</button>
-
-            <hr/>
-
-            <h2>ToDo list</h2>
-            
-            <ToDoList todos={this.state.todos} />
-
-          </div>
-        </main>
-
-      </div>
+      </Container>
     )
   };
 }
